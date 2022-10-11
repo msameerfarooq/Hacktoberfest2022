@@ -28,9 +28,7 @@ public class Bubblesort {
                 bubbleSort(arr);
 
                 System.out.println("Array after Bubble Sort");
-                for (int i = 0; i < arr.length; i++) {
-                        System.out.print(arr[i] + " ");
-                }
+                Arrays.stream(arr).forEach(System.out::println);
                 sc.close();
         }
 }
