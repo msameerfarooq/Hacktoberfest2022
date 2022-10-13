@@ -1,0 +1,355 @@
+#include<iostream>
+#include<string>
+using namespace std;
+struct date
+{
+	short day;
+	string mon;
+	int year;
+	int month;
+};
+int leapyear(int year)               
+{
+	if(year%400==0)
+	{
+		return 0;
+	}
+	else if(year%100==0)
+	{
+		return 1;
+	}
+	else if(year %4==0)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+void increment(struct date &d)
+{
+	int l;
+	l=leapyear(d.year);
+	if(d.month==2)
+	{
+		if(l==0)
+		{
+			if(d.day<29)
+			d.day+=1;
+			else
+			d.day=1;
+			d.month+=1;
+		}
+		else
+		{
+			if(d.day<28)
+			d.day+=1;
+			else
+			{
+				d.day=1;
+				d.month+=1;
+			}
+		}
+
+	}
+	
+	else
+	{
+		if(d.month % 2 == 0 && d.month < 8)
+		{
+			if(d.day < 30)
+			{
+				d.day += 1;
+			}
+			else
+			{
+				d.day = 1;
+				d.month += 1;
+			}
+		}
+		else if(d.month % 2 != 0 && d.month > 8)
+		{
+			if(d.day < 30)
+			{
+				d.day += 1;
+			}
+			else
+			{
+				d.day = 1;
+				d.month += 1;
+			}
+		}
+		else
+		{
+			if(d.month == 12 && d.day == 31)
+			{
+				d.day= 1;
+				d.month = 1;
+				d.year += 1;
+			}
+			else
+			{
+				if(d.day < 31)
+				{
+					d.day += 1;
+				}
+				else
+				{
+					d.day = 1;
+					d.month += 1;
+				}
+			}
+		}
+	}
+	
+	cout << "Incremented Date : " <<  " " << d.day << '-' << d.month << '-' << d.year << endl << endl;
+}
+int days_of_mon(int month, int year)
+{
+	int l;
+	l = leapyear(year);
+	
+	// if month is february
+	if(l == 0)
+	{
+		if(month == 2)
+		{
+			return 29;
+		}
+	}
+	else
+	{
+		if(month == 2)
+		{
+			return 28;
+		}
+	}
+	if(month % 2 == 0 && month < 8)
+	{
+		return 30;
+	}
+	else if(month % 2 != 0 && month > 8)
+	{
+		return 30;
+	}
+	else
+	{
+		return 31;
+	}
+}
+
+void difference(struct date d, struct date d1)
+{
+	int y, m, c, dom;
+	dom = days_of_mon(d1.month, d1.year);
+	
+	if(d.month > d1.month)
+	{
+		y = d1.year - d.year - 1;
+		m = abs((d.month + d1.month) - 12 - 1);
+		c= abs((d.day + d1.day) - dom);
+	}
+	else
+	{
+		y = d1.year - d.year;
+		m = d1.month - d.month;
+		c = d1.day - d.day;
+	}
+	
+	cout << "Difference is : " << y << " years" << m << " months" << c << " days" << endl << endl;
+}
+int valid_check(date d)
+{
+	if((d.year>1900) &&(d.year<9999))
+	{
+		if((d.month>=1)&&(d.month<=12))
+		{
+			if((d.day>=1 &&d.day<=31) &&(d.month==1||d.month==3||d.month==5||d.month==7||d.month==8||d.month==10||d.month==12))
+				return 0;
+			else if((d.day>=1 &&d.day<=30) &&(d.month==4||d.month==6||d.month==9||d.month==11))
+				return 0;
+		    else if((d.day>=1&& d.day<=28)&&(d.month==2))
+			return 0;
+			else if(d.day==29&& d.month==2 &&(d.year%400==0||(d.year%4==0&&d.year%100!=0)))
+			return 0;
+			else
+			return 1;		
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	else{
+		return 1;
+	}
+}
+int first_date(struct date& d)
+
+{
+	int v;
+	
+	cout << "Enter the date : ";
+	cin >> d.day;
+	
+	cout << "Enter the month : ";
+	cin >> d.month;
+	
+	cout << "Enter the year : ";
+	cin >> d.year;
+	
+	v = valid_check(d);
+	if(v == 0)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+int second_date(struct date& d1)
+
+{
+	int v;
+	
+	cout << "Enter the date : ";
+	cin >> d1.day;
+	
+	cout << "Enter the month : ";
+	cin >> d1.month;
+	
+	cout << "Enter the year : ";
+	cin >> d1.year;
+	
+	v = valid_check(d1);
+	if(v == 0)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+void display(date d)
+{
+
+
+    cout<<d.day<<"-"<<d.month<<"-"<<d.year<<endl;
+	//cout<<d.day<<"-"<<d.mon<<"-"<<d.year<<endl;
+	cout<<d.day<<"/"<<d.month<<"/"<<d.year<<endl;
+	switch(d.day)
+	{
+		case 1:
+			d.mon="JAN";
+			break;
+		case 2:
+			d.mon="FEB";
+			break;
+		case 3:
+			d.mon="MAR";
+			break;	
+		case 4:
+			d.mon="APR";
+			break;
+		case 5:
+			d.mon="MAY";
+			break;
+		case 6:
+			d.mon="JUN";
+			break;
+		case 7:
+			d.mon="JUL";
+			break;	
+		case 8:
+			d.mon="AUG";
+			break;	
+		case 9:
+			d.mon="SEP";
+			break;	
+		case 10:
+			d.mon="OCT";
+			break;	
+		case 11:
+			d.mon="NOV";
+			break;	
+		case 12:
+			d.mon="DEC";
+			break;				
+	}
+	cout<<d.day<<"-"<<d.mon<<"-"<<d.year<<endl;
+}
+void address(date d)
+{
+	cout<<"DATE "<<&d.day<<endl<<"MONTH "<<&d.month<<endl<<"YEAR "<<&d.year<<endl;
+}
+int main()
+{
+int choice,c;
+date d,d1;
+while(1)
+{
+	cout<<"Enter\n1 for first date\n2 for adress\n3 for increment\n4 for display\n5 for difference\n6 for end"<<endl;
+	cout<<"Enter choice"<<endl;
+	cin>>choice;
+	if(choice>5)
+	{
+		cout<<"end";
+		break;
+	} 
+	else
+	{
+		switch(choice)
+		{
+			case 1:
+			c=first_date(d);
+			if(c==0)
+			{
+				cout<<"valid ip"<<endl;
+			}
+			else
+			{
+				cout<<"ivalid date"<<endl;
+			    exit(0);
+			}
+			break;
+			case 2:
+			address(d);
+			break;
+			case 3:
+			increment(d);
+			break;
+			case 4:
+			display(d);
+			break;
+			case 5:
+				cout << " Enter the date to get difference from initial date : " << endl;
+				c = second_date(d1);
+				if(c == 0)
+				{
+					cout << "Input date is valid..." << endl << endl;
+				}
+				else
+				{
+					cout << "Initial date input successfull..!!" << endl << endl;
+					if(d1.year < d.year)
+					{
+						cout << "Invalid difference...." << endl;
+					}
+					difference(d, d1);
+					display(d);
+				}
+				break;
+				
+			default:
+			cout<<"invalid";
+			break;
+
+
+		}
+	}
+}
+	return 0;
+}
