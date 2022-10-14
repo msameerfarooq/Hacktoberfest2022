@@ -1,34 +1,39 @@
-// Time:  O(n^2)
-// Space: O(1)
-
 class Solution {
 public:
-    vector<vector<int>> threeSum(vector<int> &nums) {
-        sort(begin(nums), end(nums));
-        vector<vector<int>> result;
-        for (int i = size(nums) - 1; i >= 2; --i) {
-            if (i + 1 < size(nums) && nums[i] == nums[i + 1]) {
-                continue;
-            }
-            const auto& target = -nums[i];
-            int left = 0, right = i - 1;
-            while (left < right) {
-                if (nums[left] + nums[right] < target) {
-                    ++left;
-                } else if (nums[left] + nums[right] > target) {
-                    --right;
-                } else {
-                    result.push_back({nums[left], nums[right], nums[i]});
-                    ++left; --right;
-                    while (left < right && nums[left] == nums[left - 1]) {
-                        ++left;
-                    }
-                    while (left < right && nums[right] == nums[right + 1]) {
-                        --right;
-                    }
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        
+        const size_t len = nums.size();
+        if (len < 3)
+            return {};
+        
+        std::sort(nums.begin(), nums.end());
+        
+        std::set<vector<int>> unique_results;
+        
+        for(int i = 0; i < len - 2; i++) {
+            
+            int j = i + 1;
+            int k = len - 1;
+            
+            while (j < k) {
+            
+                const int sum = nums[i] + nums[j] + nums[k];
+                if (0 == sum) {
+                    unique_results.insert({nums[i], nums[j++], nums[k--]});
                 }
+                else if (0 > sum)
+                    j++;
+                else if (0 < sum)
+                    k--;
             }
         }
-        return result;
+        
+        vector<vector<int>> results;
+        
+        std::copy(
+            unique_results.begin(), unique_results.end(),
+            std::back_inserter(results));
+        
+        return results;
     }
 };
