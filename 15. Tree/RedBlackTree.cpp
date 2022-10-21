@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -75,23 +74,23 @@ Node* BSTInsert(Node* root, Node *pt)
 // Utility function to do level order traversal
 void levelOrderHelper(Node *root)
 {
-	if (root == NULL)
-		return;
-
-	std::queue<Node *> q;
-	q.push(root);
-
-	while (!q.empty())
+	if (root != NULL)
 	{
-		Node *temp = q.front();
-		cout << temp->data << " ";
-		q.pop();
+		std::queue<Node *> q;
+		q.push(root);
 
-		if (temp->left != NULL)
-			q.push(temp->left);
+		while (!q.empty())
+		{
+			Node *temp = q.front();
+			cout << temp->data << " ";
+			q.pop();
 
-		if (temp->right != NULL)
-			q.push(temp->right);
+			if (temp->left != NULL)
+				q.push(temp->left);
+
+			if (temp->right != NULL)
+				q.push(temp->right);
+		}
 	}
 }
 
