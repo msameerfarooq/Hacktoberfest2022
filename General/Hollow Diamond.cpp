@@ -11,7 +11,7 @@ int main()
 		{
 			cout << " ";
 		}
-		for (int k = 2; k <= i * 2 - 1; k++)
+		for (int k = 0; k <= i * 2 - 1; k++)
 		{
 			if (k == 1 || k == i * 3 - 1)
 			{
