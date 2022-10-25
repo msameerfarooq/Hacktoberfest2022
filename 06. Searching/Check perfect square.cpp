@@ -1,51 +1,29 @@
- 
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
  
-// function to check for
-// perfect square number
-int checkPerfectSquare(
-    long int N,
-    long int start,
-    long int last)
+bool isPerfectSquare(long double x)
 {
-    // Find the mid value
-    // from start and last
-    long int mid = (start + last) / 2;
+    // Find floating point value of
+    // square root of x.
+    if (x >= 0) {
  
-    if (start > last) {
-        return -1;
+        long long sr = sqrt(x);
+         
+        // if product of square root
+        //is equal, then
+        // return T/F
+        return (sr * sr == x);
     }
- 
-    // check if we got the number which
-    // is square root of the perfect
-    // square number N
-    if (mid * mid == N) {
-        return mid;
-    }
- 
-    // if the square(mid) is greater than N
-    // it means only lower values then mid
-    // will be possibly the square root of N
-    else if (mid * mid > N) {
-        return checkPerfectSquare(
-            N, start, mid - 1);
-    }
- 
-    // if the square(mid) is less than N
-    // it means only higher values then mid
-    // will be possibly the square root of N
-    else {
-        return checkPerfectSquare(
-            N, mid + 1, last);
-    }
+    // else return false if n<0
+    return false;
 }
  
-// Driver code
 int main()
 {
-    long int N = 65;
- 
-    cout << checkPerfectSquare(N, 1, N);
+    long long x = 2502;
+    if (isPerfectSquare(x))
+        cout << "Yes";
+    else
+        cout << "No";
     return 0;
 }
