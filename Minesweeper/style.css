@@ -84,3 +84,9 @@ button{
     border: solid 3px rgb(21, 31, 7);
     box-shadow: inset 3px 3px 10px 5px rgb(116, 226, 43);
 }
+
+button:hover {
+	
+	transition: transform 0.8s ease-in-out; /* add animation to the button */
+    transform: rotate(360deg);
+}
