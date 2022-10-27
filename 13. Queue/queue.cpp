@@ -1,89 +1,37 @@
-#include<iostream>
+#include <iostream>
+#include <queue>
+  
 using namespace std;
-
-struct node{
-    int data;
-    struct node *next;
-    node(int d)
-    {
-        data=d;
-        next=NULL;
+  
+// Print the queue
+void showq(queue<int> gq)
+{
+    queue<int> g = gq;
+    while (!g.empty()) {
+        cout << '\t' << g.front();
+        g.pop();
     }
-};
-
-struct queue{
-    struct node *front,*rear;
-    
-    queue(){
-        front=rear=NULL;
-    }
-
-    void enqueue(int d)
-    {
-        node* temp=new node(d);
-        if(front==NULL)
-        {
-            rear=front=temp;
-            cout<<"\nElement enqueued is : "<<rear->data;
-        }
-
-        else{
-            rear->next=temp;
-            rear=temp;
-            cout<<"\nElement enqueued is : "<<rear->data;
-        }
-    }
-
-    void dequeue(){
-        struct node* temp;
-        if(front==NULL)
-        {
-            cout<<"\nQueue is empty (underflow)";
-        }
-
-        else{
-            temp=front;
-            front=front->next;
-
-            if(front==NULL)
-            rear==NULL;
-
-            temp->next=NULL;
-            cout<<"\nElement dequeued is : "<<temp->data;
-            free(temp);
-        }
-    }
-
-    void display(){
-        struct node* temp;
-        if(rear==NULL && front==NULL)
-        {
-            cout<<"\nQueue is empty";
-        }
-
-        else{
-            cout<<"\nElements in the queue are : ";
-                struct node *temp=front;
-
-            while (temp!=NULL)
-            {
-                cout<<temp->data<<"  ";
-                temp=temp->next;
-            }
-            
-            
-        }
-    }
-};
-
-    int main(){
-        queue q;
-        q.enqueue(10);
-        q.enqueue(20);
-        q.enqueue(30);
-        q.enqueue(40);
-        q.enqueue(50);
-        q.dequeue();
-        q.display();
-
-    }
+    cout << '\n';
+}
+  
+// Driver Code
+int main()
+{
+    queue<int> gquiz;
+    gquiz.push(10);
+    gquiz.push(20);
+    gquiz.push(30);
+  
+    cout << "The queue gquiz is : ";
+    showq(gquiz);
+  
+    cout << "\ngquiz.size() : " << gquiz.size();
+    cout << "\ngquiz.front() : " << gquiz.front();
+    cout << "\ngquiz.back() : " << gquiz.back();
+  
+    cout << "\ngquiz.pop() : ";
+    gquiz.pop();
+    showq(gquiz);
+  
+    return 0;
+}
